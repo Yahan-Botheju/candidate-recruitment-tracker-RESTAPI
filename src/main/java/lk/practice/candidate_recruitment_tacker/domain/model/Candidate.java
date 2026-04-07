@@ -16,5 +16,5 @@ public class Candidate {
     private String appliedRole;
     private double expectedSalary;
     private CandidateStatus status;
-    private boolean isDeleted = false;
+
 }
