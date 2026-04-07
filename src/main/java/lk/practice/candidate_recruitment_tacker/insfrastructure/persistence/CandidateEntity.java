@@ -40,6 +40,7 @@ public class CandidateEntity {
     @Enumerated(EnumType.STRING)
     private CandidateStatus status;
 
-    private boolean isDeleted = false;
+    @Column(name = "is_deleted")
+    private boolean deleted = false;
 
 }
