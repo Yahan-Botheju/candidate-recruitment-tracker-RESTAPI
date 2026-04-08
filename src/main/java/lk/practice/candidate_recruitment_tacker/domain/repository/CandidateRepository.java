@@ -9,4 +9,7 @@ public interface CandidateRepository {
 
     //get all candidates
     List<Candidate> getAllCandidates();
+
+    //save candidate
+    void saveCandidate(Candidate candidate);
 }
