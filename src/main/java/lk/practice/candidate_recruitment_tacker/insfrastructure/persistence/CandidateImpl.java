@@ -28,4 +28,14 @@ public class CandidateImpl implements CandidateRepository {
         return candidateEntities.stream()
                 .map(candidatePersistenceMapper::toDomainModel).toList();
     }
+
+    //create candidate
+    @Override
+    public void saveCandidate(Candidate candidate){
+        //turn domain model into entity through persistence mapper
+        CandidateEntity candidateEntity = candidatePersistenceMapper.toEntity(candidate);
+
+        //save in db through jpa repo
+        jpaCandidateRepository.save(candidateEntity);
+    }
 }
