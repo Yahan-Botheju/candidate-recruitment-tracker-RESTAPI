@@ -1,6 +1,7 @@
 package lk.practice.candidate_recruitment_tacker.usecase;
 
 import lk.practice.candidate_recruitment_tacker.domain.model.Candidate;
+import lk.practice.candidate_recruitment_tacker.domain.model.CandidateStatus;
 import lk.practice.candidate_recruitment_tacker.domain.repository.CandidateRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -17,4 +18,14 @@ public class CandidateUseCaseImpl implements CandidateUseCase{
     public List<Candidate> getAllCandidates(){
         return candidateRepository.getAllCandidates();
     }
+
+    //save candidate
+    @Override
+    public void saveCandidate(Candidate candidate){
+        //set status applied for fresh candidate
+        candidate.setStatus(CandidateStatus.APPLIED);
+
+        candidateRepository.saveCandidate(candidate);
+    }
+
 }
