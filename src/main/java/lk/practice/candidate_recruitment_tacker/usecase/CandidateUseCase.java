@@ -8,4 +8,7 @@ public interface CandidateUseCase {
 
     //get all candidates
     List<Candidate> getAllCandidates();
+
+    //create candidate
+    void saveCandidate(Candidate candidate);
 }
