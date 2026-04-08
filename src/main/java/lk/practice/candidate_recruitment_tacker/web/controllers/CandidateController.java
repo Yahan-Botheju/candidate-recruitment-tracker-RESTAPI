@@ -1,13 +1,15 @@
 package lk.practice.candidate_recruitment_tacker.web.controllers;
 
+import lk.practice.candidate_recruitment_tacker.domain.model.Candidate;
 import lk.practice.candidate_recruitment_tacker.usecase.CandidateUseCase;
+import lk.practice.candidate_recruitment_tacker.web.DTOs.CandidateRequestDTO;
 import lk.practice.candidate_recruitment_tacker.web.DTOs.CandidateResponseDTO;
 import lk.practice.candidate_recruitment_tacker.web.webMappers.CandidateWebMapper;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +32,24 @@ public class CandidateController {
         return candidateUseCase.getAllCandidates()
                 .stream()
                 .map(candidateWebMapper::toResponseDTO).toList();
+    }
+
+    //save candidate
+    @PostMapping("/register")
+    public ResponseEntity<String> saveCandidate(
+            @RequestBody CandidateRequestDTO candidateRequestDTO
+            ){
+
+        //set to domain model using web mapper
+        Candidate toDomainModel = candidateWebMapper.toDomainModel(candidateRequestDTO);
+
+        //send domain model to usecase
+        candidateUseCase.saveCandidate(toDomainModel);
+
+        //above both in one line chaining
+        /* candidateUseCase.saveCandidate(candidateWebMapper.toDomainModel(candidateRequestDTO)); */
+
+        //get response
+        return ResponseEntity.status(HttpStatus.CREATED).body("Candidate registered!!");
     }
 }
