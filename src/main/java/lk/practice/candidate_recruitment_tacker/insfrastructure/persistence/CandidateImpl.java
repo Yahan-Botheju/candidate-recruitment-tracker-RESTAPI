@@ -38,4 +38,20 @@ public class CandidateImpl implements CandidateRepository {
         //save in db through jpa repo
         jpaCandidateRepository.save(candidateEntity);
     }
+
+    //update candidate
+    @Override
+    public  void updateCandidate(Long id, Candidate candidate){
+        //check available of ID given user
+        CandidateEntity candidateEntity = jpaCandidateRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Invalid ID" + id));
+
+        //copy new domain model data into old data entity
+       CandidateEntity updatedEntity = candidatePersistenceMapper
+               .updateEntityFromNewDomainModel(candidate, candidateEntity);
+
+       //save in db
+        jpaCandidateRepository.save(updatedEntity);
+    }
+
 }
