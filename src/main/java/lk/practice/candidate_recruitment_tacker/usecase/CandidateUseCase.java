@@ -11,4 +11,7 @@ public interface CandidateUseCase {
 
     //create candidate
     void saveCandidate(Candidate candidate);
+
+    //update candidate
+    void updateCandidate(Long id, Candidate candidate);
 }
