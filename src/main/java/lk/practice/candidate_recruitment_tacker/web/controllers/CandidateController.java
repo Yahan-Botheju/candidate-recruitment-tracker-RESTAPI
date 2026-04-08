@@ -52,4 +52,20 @@ public class CandidateController {
         //get response
         return ResponseEntity.status(HttpStatus.CREATED).body("Candidate registered!!");
     }
+
+    //update candidate
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateCandidate(
+            @PathVariable Long id,
+            @RequestBody CandidateRequestDTO candidateRequestDTO
+            ){
+        //request DTO turn to domain model
+        Candidate toDomainModel = candidateWebMapper.toDomainModel(candidateRequestDTO);
+
+        //domain model sent to usecase
+        candidateUseCase.updateCandidate(id, toDomainModel);
+
+        //make response
+        return ResponseEntity.status(HttpStatus.CREATED).body("Candidate details updated!!");
+    }
 }
