@@ -28,4 +28,11 @@ public class CandidateUseCaseImpl implements CandidateUseCase{
         candidateRepository.saveCandidate(candidate);
     }
 
+    //update candidate
+    @Override
+    public void updateCandidate(Long id, Candidate candidate){
+        //set value to domain repo
+        candidateRepository.updateCandidate(id, candidate);
+    }
+
 }
