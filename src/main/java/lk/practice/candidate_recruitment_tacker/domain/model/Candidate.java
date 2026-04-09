@@ -17,4 +17,6 @@ public class Candidate {
     private double expectedSalary;
     private CandidateStatus status;
 
+    //add new field for scoring, shows only
+    private double recruitmentScore;
 }
