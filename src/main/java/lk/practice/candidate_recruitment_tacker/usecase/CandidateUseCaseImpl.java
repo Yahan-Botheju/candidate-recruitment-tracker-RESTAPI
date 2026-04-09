@@ -16,6 +16,7 @@ public class CandidateUseCaseImpl implements CandidateUseCase{
     //get all candidates
     @Override
     public List<Candidate> getAllCandidates(){
+
         return candidateRepository.getAllCandidates();
     }
 
@@ -40,5 +41,18 @@ public class CandidateUseCaseImpl implements CandidateUseCase{
     public void deleteCandidate(Long id){
         //soft delete by id
         candidateRepository.deleteCandidate(id);
+    }
+
+    //create usecase own method for calculate recruitment score
+    private double recruitmentScoreCalculate(Candidate candidate){
+        //calculate experience points
+        double experiencePoints = candidate.getExperience() * 10;
+        //calculate salary points
+        double salaryPoints = candidate.getExpectedSalary() > 500000
+                ?  (int)((candidate.getExpectedSalary() - 500000) / 100000) * 5
+                : 0;
+
+        return  experiencePoints - salaryPoints;
+
     }
 }
