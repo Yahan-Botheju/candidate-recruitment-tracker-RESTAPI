@@ -9,9 +9,11 @@ import lk.practice.candidate_recruitment_tacker.domain.model.CandidateStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SoftDelete;
 
 @Entity
 @Table(name = "candidates")
+@SoftDelete(columnName = "is_deleted")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -39,8 +41,5 @@ public class CandidateEntity {
 
     @Enumerated(EnumType.STRING)
     private CandidateStatus status;
-
-    @Column(name = "is_deleted")
-    private boolean deleted = false;
 
 }
