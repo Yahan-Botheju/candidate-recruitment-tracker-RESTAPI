@@ -35,4 +35,10 @@ public class CandidateUseCaseImpl implements CandidateUseCase{
         candidateRepository.updateCandidate(id, candidate);
     }
 
+    //delete candidate
+    @Override
+    public void deleteCandidate(Long id){
+        //soft delete by id
+        candidateRepository.deleteCandidate(id);
+    }
 }
