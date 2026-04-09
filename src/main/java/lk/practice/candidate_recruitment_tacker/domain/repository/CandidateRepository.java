@@ -14,4 +14,7 @@ public interface CandidateRepository {
 
     //update candidate
     void updateCandidate(Long id, Candidate candidate);
+
+    //delete candidate
+    void deleteCandidate(Long id);
 }
