@@ -54,4 +54,17 @@ public class CandidateImpl implements CandidateRepository {
         jpaCandidateRepository.save(updatedEntity);
     }
 
+    //delete candidate
+    @Override
+    public void deleteCandidate(Long id){
+        //check candidate availability according to ID
+        if(!jpaCandidateRepository.existsById(id)){
+            throw new RuntimeException("Invalid ID" + id);
+        }
+
+        //soft delete
+        jpaCandidateRepository.deleteById(id);
+    }
+
+
 }
