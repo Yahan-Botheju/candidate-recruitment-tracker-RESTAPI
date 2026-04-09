@@ -13,7 +13,6 @@ public interface CandidatePersistenceMapper {
     /*
       ignore the isDeleted field, that not contain in domain model but entity has
     */
-    @Mapping(target = "deleted", ignore = true)
     CandidateEntity toEntity(Candidate candidate);
 
     //entity to domain model
