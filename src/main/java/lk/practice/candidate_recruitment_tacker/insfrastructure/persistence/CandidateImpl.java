@@ -1,6 +1,7 @@
 package lk.practice.candidate_recruitment_tacker.insfrastructure.persistence;
 
 import lk.practice.candidate_recruitment_tacker.domain.model.Candidate;
+import lk.practice.candidate_recruitment_tacker.domain.model.CandidateStatus;
 import lk.practice.candidate_recruitment_tacker.domain.repository.CandidateRepository;
 import lk.practice.candidate_recruitment_tacker.insfrastructure.persistence.persistenceMappers.CandidatePersistenceMapper;
 import lombok.RequiredArgsConstructor;
@@ -45,6 +46,11 @@ public class CandidateImpl implements CandidateRepository {
         //check available of ID given user
         CandidateEntity candidateEntity = jpaCandidateRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Invalid ID" + id));
+
+        //check candidate status
+         if(candidateEntity.getStatus() == CandidateStatus.HIRED || candidateEntity.getStatus() == CandidateStatus.REJECTED){
+             throw new RuntimeException("Invalid status");
+         }
 
         //copy new domain model data into old data entity
        CandidateEntity updatedEntity = candidatePersistenceMapper
