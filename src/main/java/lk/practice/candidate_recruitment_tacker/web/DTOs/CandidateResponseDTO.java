@@ -17,4 +17,7 @@ public class CandidateResponseDTO {
     private String appliedRole;
     private double expectedSalary;
     private CandidateStatus status;
+
+    //add new field for scoring
+    private double recruitmentScore;
 }
