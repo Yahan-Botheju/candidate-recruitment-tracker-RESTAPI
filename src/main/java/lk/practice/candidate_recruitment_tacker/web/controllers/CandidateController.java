@@ -50,7 +50,7 @@ public class CandidateController {
         /* candidateUseCase.saveCandidate(candidateWebMapper.toDomainModel(candidateRequestDTO)); */
 
         //get response
-        return ResponseEntity.status(HttpStatus.CREATED).body("Candidate registered!!");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Candidate registered successful!!!!");
     }
 
     //update candidate
@@ -66,6 +66,17 @@ public class CandidateController {
         candidateUseCase.updateCandidate(id, toDomainModel);
 
         //make response
-        return ResponseEntity.status(HttpStatus.CREATED).body("Candidate details updated!!");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Candidate details updated successful!!");
+    }
+
+    //delete candidate
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteCandidate(
+            @PathVariable Long id
+    ){
+        //directly set to usecase, because no Req body
+        candidateUseCase.deleteCandidate(id);
+
+        return ResponseEntity.ok("Candidate delete successful!!");
     }
 }
