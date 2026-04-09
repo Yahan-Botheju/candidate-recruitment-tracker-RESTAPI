@@ -17,7 +17,17 @@ public class CandidateUseCaseImpl implements CandidateUseCase{
     @Override
     public List<Candidate> getAllCandidates(){
 
-        return candidateRepository.getAllCandidates();
+        //get all candidate from db
+        List<Candidate> candidate = candidateRepository.getAllCandidates();
+
+        //set each candidate to score using score calculate method
+        return candidate.stream()
+                .map(recruiters -> {
+                    double score = recruitmentScoreCalculate(recruiters);
+                    recruiters.setRecruitmentScore(score);
+                    return recruiters;
+                }).toList();
+
     }
 
     //save candidate
