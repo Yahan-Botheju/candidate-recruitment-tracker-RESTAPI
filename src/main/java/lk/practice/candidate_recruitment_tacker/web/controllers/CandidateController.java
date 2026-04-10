@@ -26,12 +26,24 @@ public class CandidateController {
 
     //get all candidates
     @GetMapping("/all")
-    public List<CandidateResponseDTO> getAllCandidates(){
+    public List<CandidateResponseDTO> getAllCandidates(
+            @RequestHeader(value = "X-User-Role",
+                    required = false) String role
+    ){
+        //get list of all candidates as model
+        List<Candidate> candidates = candidateUseCase.getAllCandidates();
 
-        //get domain model through usecase, through web mapper turn that into response dto and return
-        return candidateUseCase.getAllCandidates()
-                .stream()
-                .map(candidateWebMapper::toResponseDTO).toList();
+        //map all candidates and check role and hide salary
+        return candidates.stream()
+                .map(candidate -> {
+                    CandidateResponseDTO requestDTO = candidateWebMapper.toResponseDTO(candidate);
+
+                    //ADMIN != SALARY is 0
+                    if(!"ADMIN".equalsIgnoreCase(role)){
+                        requestDTO.setExpectedSalary(0.0);
+                    }
+                    return requestDTO;
+                }).toList();
     }
 
     //save candidate
