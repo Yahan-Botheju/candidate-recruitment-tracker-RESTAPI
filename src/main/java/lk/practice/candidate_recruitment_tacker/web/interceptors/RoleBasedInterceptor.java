@@ -17,14 +17,14 @@ public class RoleBasedInterceptor implements HandlerInterceptor {
     ) throws Exception{
 
         //get req method
-        String getMethod = request.getMethod();
+        String reqMethod = request.getMethod();
 
         //take role from header
         String role = request.getHeader("X-User-Role");
 
         //req delete and role != ADMIN then block
-        if("DELETE".equalsIgnoreCase(getMethod)){
-            if(role == null || role.equalsIgnoreCase("ADMIN")){
+        if("DELETE".equalsIgnoreCase(reqMethod)){
+            if(role == null || ! role.trim().equalsIgnoreCase("ADMIN")){
               //throw 403 error
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 response.getWriter().write("Access denied: Only ADMIN can delete candidates");
