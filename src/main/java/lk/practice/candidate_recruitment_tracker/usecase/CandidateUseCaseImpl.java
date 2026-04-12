@@ -65,4 +65,12 @@ public class CandidateUseCaseImpl implements CandidateUseCase{
         return  experiencePoints - salaryPoints;
 
     }
+
+    //create isAdmin function, ROLE != ADMIN  ,SALARY == 0
+    public Candidate isAdmin(Candidate candidate, String role){
+        if(!"ADMIN".equalsIgnoreCase(role)){
+            candidate.setExpectedSalary(0.0);
+        }
+        return candidate;
+    }
 }

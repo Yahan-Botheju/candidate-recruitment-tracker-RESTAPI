@@ -17,4 +17,7 @@ public interface CandidateUseCase {
 
     //delete candidate
     void deleteCandidate(Long id);
+
+    //check role is ADMIN before show salary
+    Candidate isAdmin(Candidate candidate, String role);
 }
