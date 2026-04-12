@@ -33,3 +33,4 @@ out/
 
 ### VS Code ###
 .vscode/
+/src/main/java/lk/practice/candidate_recruitment_tracker/domain/model/test.java
