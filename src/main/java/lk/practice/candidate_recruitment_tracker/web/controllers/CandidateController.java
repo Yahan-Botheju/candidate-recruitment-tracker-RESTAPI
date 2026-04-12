@@ -38,13 +38,13 @@ public class CandidateController {
         //map all candidates and check role and hide salary
         return candidates.stream()
                 .map(candidate -> {
-                    CandidateResponseDTO requestDTO = candidateWebMapper.toResponseDTO(candidate);
 
-                    //ADMIN != SALARY is 0
-                    if(!"ADMIN".equalsIgnoreCase(role)){
-                        requestDTO.setExpectedSalary(0.0);
-                    }
-                    return requestDTO;
+                    //check user has admin privileges, DOMAIN MODEL
+                    Candidate checkIsAdmin = candidateUseCase.isAdmin(candidate, role);
+
+                    //set that check domain model to response DTO
+                    return candidateWebMapper.toResponseDTO(checkIsAdmin);
+
                 }).toList();
     }
 
