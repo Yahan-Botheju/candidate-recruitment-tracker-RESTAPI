@@ -53,20 +53,8 @@ public class CandidateUseCaseImpl implements CandidateUseCase{
         candidateRepository.deleteCandidate(id);
     }
 
-    //create usecase own method for calculate recruitment score
-    private double recruitmentScoreCalculate(Candidate candidate){
-        //calculate experience points
-        double experiencePoints = candidate.getExperience() * 10;
-        //calculate salary points
-        double salaryPoints = candidate.getExpectedSalary() > 500000
-                ?  (int)((candidate.getExpectedSalary() - 500000) / 100000) * 5
-                : 0;
-
-        return  experiencePoints - salaryPoints;
-
-    }
-
     //create isAdmin function, ROLE != ADMIN  ,SALARY == 0
+    @Override
     public Candidate isAdmin(Candidate candidate, String role){
         if(!"ADMIN".equalsIgnoreCase(role)){
             candidate.setExpectedSalary(0.0);
@@ -91,6 +79,19 @@ public class CandidateUseCaseImpl implements CandidateUseCase{
         candidate.setStatus(candidateStatus);
 
         //save new status of candidate using save method(CRUD)
-        candidateRepository.saveCandidate(candidate);
+        candidateRepository.updateCandidate(id, candidate);
+    }
+
+    //create usecase own method for calculate recruitment score
+    private double recruitmentScoreCalculate(Candidate candidate){
+        //calculate experience points
+        double experiencePoints = candidate.getExperience() * 10;
+        //calculate salary points
+        double salaryPoints = candidate.getExpectedSalary() > 500000
+                ?  (int)((candidate.getExpectedSalary() - 500000) / 100000) * 5
+                : 0;
+
+        return  experiencePoints - salaryPoints;
+
     }
 }
