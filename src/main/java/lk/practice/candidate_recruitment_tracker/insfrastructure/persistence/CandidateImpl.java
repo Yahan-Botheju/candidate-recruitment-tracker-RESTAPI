@@ -74,5 +74,14 @@ public class CandidateImpl implements CandidateRepository {
         jpaCandidateRepository.deleteById(id);
     }
 
+    //get single candidate by id
+    @Override
+    public Candidate getCandidate(Long id){
+        //check candidate existence
+        CandidateEntity candidateEntity = jpaCandidateRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Invalid ID" + id));
+
+        return candidatePersistenceMapper.toDomainModel(candidateEntity);
+    }
 
 }
