@@ -6,15 +6,18 @@ import java.util.List;
 
 public interface CandidateRepository {
 
-    //get all candidates
+    //initiate get all candidates
     List<Candidate> getAllCandidates(int page, int size);
 
-    //save candidate
+    //initiate save candidate
     void saveCandidate(Candidate candidate);
 
-    //update candidate
+    //initiate update candidate
     void updateCandidate(Long id, Candidate candidate);
 
-    //delete candidate
+    //initiate delete candidate
     void deleteCandidate(Long id);
+
+    //initiate get single candidate by id
+    Candidate getCandidate(Long id);
 }
