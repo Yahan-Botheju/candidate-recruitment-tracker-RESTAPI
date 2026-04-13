@@ -79,7 +79,7 @@ public class CandidateUseCaseImpl implements CandidateUseCase{
         candidate.setStatus(candidateStatus);
 
         //save new status of candidate using save method(CRUD)
-        candidateRepository.saveCandidate(candidate);
+        candidateRepository.updateCandidate(id, candidate);
     }
 
     //create usecase own method for calculate recruitment score
