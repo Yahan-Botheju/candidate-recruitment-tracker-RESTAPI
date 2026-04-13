@@ -103,11 +103,6 @@ public class CandidateController {
             @RequestHeader(value = "X-User-Role",required = false) String role
             ){
 
-        //check role == ADMIN
-        if(!"ADMIN".equals(role)){
-            throw new RuntimeException("you cannot update candidate status");
-        }
-
         //call usecase interface's method and set values
         candidateUseCase.updateCandidateStatus(id, candidateStatus);
 
