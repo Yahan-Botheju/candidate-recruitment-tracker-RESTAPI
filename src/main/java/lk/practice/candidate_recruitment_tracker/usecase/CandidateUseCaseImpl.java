@@ -53,15 +53,6 @@ public class CandidateUseCaseImpl implements CandidateUseCase{
         candidateRepository.deleteCandidate(id);
     }
 
-    //create isAdmin function, ROLE != ADMIN  ,SALARY == 0
-    @Override
-    public Candidate isAdmin(Candidate candidate, String role){
-        if(!"ADMIN".equalsIgnoreCase(role)){
-            candidate.setExpectedSalary(0.0);
-        }
-        return candidate;
-    }
-
     //update candidate status method
     @Override
     public void updateCandidateStatus(Long id, CandidateStatus candidateStatus){
