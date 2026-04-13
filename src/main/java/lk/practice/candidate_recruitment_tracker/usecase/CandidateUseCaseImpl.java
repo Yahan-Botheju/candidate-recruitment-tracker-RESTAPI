@@ -73,4 +73,24 @@ public class CandidateUseCaseImpl implements CandidateUseCase{
         }
         return candidate;
     }
+
+    //update candidate status method
+    @Override
+    public void updateCandidateStatus(Long id, CandidateStatus candidateStatus){
+        //get related candidate by id through repo method
+        Candidate candidate = candidateRepository.getCandidate(id);
+
+        //check taken candidate status == HIRED || REJECTED
+        if(candidate.getStatus().equals(CandidateStatus.HIRED) ||
+           candidate.getStatus().equals(CandidateStatus.REJECTED)
+        ){
+            throw new RuntimeException("Candidate status cannot be edited");
+        }
+
+        //set new status to candidate
+        candidate.setStatus(candidateStatus);
+
+        //save new status of candidate using save method(CRUD)
+        candidateRepository.saveCandidate(candidate);
+    }
 }

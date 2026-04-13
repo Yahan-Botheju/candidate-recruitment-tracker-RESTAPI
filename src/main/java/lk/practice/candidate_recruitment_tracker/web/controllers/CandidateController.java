@@ -1,6 +1,7 @@
 package lk.practice.candidate_recruitment_tracker.web.controllers;
 
 import lk.practice.candidate_recruitment_tracker.domain.model.Candidate;
+import lk.practice.candidate_recruitment_tracker.domain.model.CandidateStatus;
 import lk.practice.candidate_recruitment_tracker.usecase.CandidateUseCase;
 import lk.practice.candidate_recruitment_tracker.web.DTOs.CandidateRequestDTO;
 import lk.practice.candidate_recruitment_tracker.web.DTOs.CandidateResponseDTO;
@@ -94,4 +95,22 @@ public class CandidateController {
         return ResponseEntity.ok("Candidate delete successful!!");
     }
 
+    //update candidate by id (ADMIN ONLY)
+    @PutMapping("/status/{id}")
+    public ResponseEntity<String> updateCandidateStatus(
+            @PathVariable Long id,
+            @RequestParam CandidateStatus candidateStatus,
+            @RequestHeader(value = "X-User-Role",required = false) String role
+            ){
+
+        //check role == ADMIN
+        if(!"ADMIN".equals(role)){
+            throw new RuntimeException("you cannot update candidate status");
+        }
+
+        //call usecase interface's method and set values
+        candidateUseCase.updateCandidateStatus(id, candidateStatus);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body("Candidate status updated successful!!");
+    }
 }
