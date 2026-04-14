@@ -18,17 +18,4 @@ public interface CandidateWebMapper {
     //domain model response DTO
     CandidateResponseDTO toResponseDTO(Candidate candidate);
 
-    //create custom mapper method, use toResponseDTO and set salary to 0, if not admin
-    default CandidateResponseDTO checkIsAdmin(Candidate candidate, String role){
-
-        //use responseDTO to turn domain mode to response
-        CandidateResponseDTO getResponseDTO =  toResponseDTO(candidate);
-
-        //check role is ADMIN if not set salary to 0
-        if(!"ADMIN".equalsIgnoreCase(role)){
-            getResponseDTO.setExpectedSalary(0.0);
-        }
-
-        return getResponseDTO;
-    }
 }
