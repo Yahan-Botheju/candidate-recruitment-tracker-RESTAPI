@@ -201,11 +201,11 @@ Recruitment Score = (Experience × 10) - Salary Penalty
 Swagger UI:
 
 ```text id="s2k9x1"
-http://localhost:8080/swagger-ui/index.html
+http://localhost:5000/swagger-ui/index.html
 ```
 OpenAPI JSON:
 ```text id="s2k9x1"
-http://localhost:8080/v3/api-docs
+http://localhost:5000/v3/api-docs
 ```
 ---
 
