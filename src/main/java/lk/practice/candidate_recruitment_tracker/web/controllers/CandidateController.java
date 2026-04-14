@@ -38,10 +38,20 @@ public class CandidateController {
 
         //map all candidates and check role and hide salary
         return candidates.stream()
-                .map(candidate ->
-                    //use new mapper method for checking ADMIN or not
-                     candidateWebMapper.checkIsAdmin(candidate, role)
-                ).toList();
+                .map(candidate -> {
+
+                    //turn entity to model
+                    CandidateResponseDTO responseDTO = candidateWebMapper.toResponseDTO(candidate);
+
+                    //check role == admin or not
+                    if(!"ADMIN".equalsIgnoreCase(role)){
+                        responseDTO.setExpectedSalary(0.0);
+                    }
+
+                    //return response
+                    return responseDTO;
+
+                }).toList();
     }
 
     //save candidate
