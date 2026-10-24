@@ -1,7 +1,7 @@
 package lk.practice.candidate_recruitment_tracker.insfrastructure.persistence.persistenceMappers;
 
 import lk.practice.candidate_recruitment_tracker.domain.model.Candidate;
-import lk.practice.candidate_recruitment_tracker.insfrastructure.persistence.CandidateEntity;
+import lk.practice.candidate_recruitment_tracker.insfrastructure.persistence.entity.CandidateEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

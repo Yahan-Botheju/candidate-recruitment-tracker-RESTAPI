@@ -1,10 +1,15 @@
 package lk.practice.candidate_recruitment_tracker.web.controllers;
 
+import jakarta.validation.Valid;
 import lk.practice.candidate_recruitment_tracker.domain.model.Candidate;
 import lk.practice.candidate_recruitment_tracker.domain.model.CandidateStatus;
 import lk.practice.candidate_recruitment_tracker.usecase.CandidateUseCase;
+import lk.practice.candidate_recruitment_tracker.usecase.records.CreateNewCandidateCommand;
+import lk.practice.candidate_recruitment_tracker.usecase.records.CreateNewCandidateResult;
 import lk.practice.candidate_recruitment_tracker.web.DTOs.CandidateRequestDTO;
 import lk.practice.candidate_recruitment_tracker.web.DTOs.CandidateResponseDTO;
+import lk.practice.candidate_recruitment_tracker.web.DTOs.CreateNewCandidateRequestDTO;
+import lk.practice.candidate_recruitment_tracker.web.DTOs.CreateNewCandidateResponseDTO;
 import lk.practice.candidate_recruitment_tracker.web.webMappers.CandidateWebMapper;
 import lombok.RequiredArgsConstructor;
 
@@ -19,10 +24,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CandidateController {
 
-    //inject candidate usecase
+    //inject required dependencies
     private final CandidateUseCase candidateUseCase;
-
-    //inject web mapper
     private final CandidateWebMapper candidateWebMapper;
 
     //get all candidates
@@ -56,21 +59,17 @@ public class CandidateController {
 
     //save candidate
     @PostMapping("/register")
-    public ResponseEntity<String> saveCandidate(
-            @RequestBody CandidateRequestDTO candidateRequestDTO
+    public ResponseEntity<CreateNewCandidateResponseDTO> saveCandidate(
+            @Valid @RequestBody CreateNewCandidateRequestDTO createNewCandidateRequestDTO
             ){
+        //to command through the mapper
+        CreateNewCandidateCommand toCommand = candidateWebMapper.toCreateNewCandidateCommand(createNewCandidateRequestDTO);
+        //to usecase
+        CreateNewCandidateResult toResult = candidateUseCase.saveCandidate(toCommand);
+        //to response through mapper
+        CreateNewCandidateResponseDTO responseDTO = candidateWebMapper.toCreateNewCandidateResponse(toResult);
 
-        //set to domain model using web mapper
-        Candidate toDomainModel = candidateWebMapper.toDomainModel(candidateRequestDTO);
-
-        //send domain model to usecase
-        candidateUseCase.saveCandidate(toDomainModel);
-
-        //above both in one line chaining
-        /* candidateUseCase.saveCandidate(candidateWebMapper.toDomainModel(candidateRequestDTO)); */
-
-        //get response
-        return ResponseEntity.status(HttpStatus.CREATED).body("Candidate registered successful!!!!");
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
     //update candidate
