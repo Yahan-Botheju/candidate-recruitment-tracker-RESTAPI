@@ -10,16 +10,21 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
 public class CandidateImpl implements CandidateRepository {
 
-    //inject jpa repo
+    //inject required dependencies
     private final JpaCandidateRepository jpaCandidateRepository;
-
-    //inject persistence mapper
     private final CandidatePersistenceMapper candidatePersistenceMapper;
+
+    @Override
+    public Optional<Candidate> getCandidateByEmail(String email) {
+        return jpaCandidateRepository.getCandidateByEmail(email)
+                .map(candidatePersistenceMapper::toDomainModel);
+    }
 
     //get all candidates
     @Override
