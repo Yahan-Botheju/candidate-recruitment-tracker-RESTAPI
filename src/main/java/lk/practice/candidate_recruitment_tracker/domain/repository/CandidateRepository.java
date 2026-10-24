@@ -13,7 +13,7 @@ public interface CandidateRepository {
     List<Candidate> getAllCandidates(int page, int size);
 
     //initiate save candidate
-    void saveCandidate(Candidate candidate);
+    Candidate saveCandidate(Candidate candidate);
 
     //initiate update candidate
     void updateCandidate(Long id, Candidate candidate);
