@@ -41,12 +41,14 @@ public class CandidateRepositoryImpl implements CandidateRepository {
 
     //create candidate
     @Override
-    public void saveCandidate(Candidate candidate){
+    public Candidate saveCandidate(Candidate candidate){
         //turn domain model into entity through persistence mapper
         CandidateEntity candidateEntity = candidatePersistenceMapper.toEntity(candidate);
 
         //save in db through jpa repo
-        jpaCandidateRepository.save(candidateEntity);
+        CandidateEntity savedCandidate = jpaCandidateRepository.save(candidateEntity);
+
+        return candidatePersistenceMapper.toDomainModel(savedCandidate);
     }
 
     //update candidate
