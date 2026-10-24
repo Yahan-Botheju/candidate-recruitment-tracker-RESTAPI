@@ -25,11 +25,59 @@ public class Candidate {
         this.recruitmentScore = recruitmentScore;
     }
 
-    public Long getId() { return id; }
-    public String getFullName() { return fullName; }
-    public String getEmail() { return email; }
-    public int getExperience() { return experience; }
-    public String getAppliedRole() { return appliedRole; }
-    public double getExpectedSalary() { return expectedSalary; }
-    public CandidateStatus getStatus() { return status; }
-    public double getRecruitmentScore() { return recruitmentScore; }}
+    public Long getId() {
+        return id;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public String getAppliedRole() {
+        return appliedRole;
+    }
+
+    public double getExpectedSalary() {
+        return expectedSalary;
+    }
+
+    public CandidateStatus getStatus() {
+        return status;
+    }
+
+    public double getRecruitmentScore() {
+        return recruitmentScore;
+    }
+
+
+    /* __FACTORY_METHOD__ */
+
+    public static Candidate createCandidate(
+            String fullName,
+            String email,
+            int experience,
+            String appliedRole,
+            double expectedSalary,
+            CandidateStatus status,
+            double recruitmentScore
+    ) {
+        return new Candidate(
+                null,
+                fullName,
+                email,
+                experience,
+                appliedRole,
+                expectedSalary,
+                status,
+                recruitmentScore
+        );
+    }
+}
