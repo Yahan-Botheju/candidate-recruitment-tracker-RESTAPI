@@ -80,4 +80,19 @@ public class Candidate {
                 recruitmentScore
         );
     }
+
+    /* __DOMAIN_LOGICS__ */
+
+    //calculate recruitment score
+    public void recruitmentScoreCalculate(int experience, double expectedSalary){
+        if(experience < 0 || expectedSalary < 0.0){
+            throw new IllegalArgumentException("Negative values are not allowed!!");
+        }
+        double experiencePoints = experience * 10;
+        //calculate salary points
+        double salaryPoints = expectedSalary > 500000
+                ?  (int)((expectedSalary - 500000) / 100000) * 5
+                : 0;
+        this.recruitmentScore = experiencePoints - salaryPoints;
+    }
 }
