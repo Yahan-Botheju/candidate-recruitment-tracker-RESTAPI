@@ -2,6 +2,8 @@ package lk.practice.candidate_recruitment_tracker.usecase;
 
 import lk.practice.candidate_recruitment_tracker.domain.model.Candidate;
 import lk.practice.candidate_recruitment_tracker.domain.model.CandidateStatus;
+import lk.practice.candidate_recruitment_tracker.usecase.records.CreateNewCandidateCommand;
+import lk.practice.candidate_recruitment_tracker.usecase.records.CreateNewCandidateResult;
 
 import java.util.List;
 
@@ -11,7 +13,7 @@ public interface CandidateUseCase {
     List<Candidate> getAllCandidates(int page, int size);
 
     //create candidate
-    void saveCandidate(Candidate candidate);
+    CreateNewCandidateResult saveCandidate(CreateNewCandidateCommand createNewCandidateCommand);
 
     //update candidate
     void updateCandidate(Long id, Candidate candidate);
