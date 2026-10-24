@@ -3,6 +3,8 @@ package lk.practice.candidate_recruitment_tracker.usecase;
 import lk.practice.candidate_recruitment_tracker.domain.model.Candidate;
 import lk.practice.candidate_recruitment_tracker.domain.model.CandidateStatus;
 import lk.practice.candidate_recruitment_tracker.domain.repository.CandidateRepository;
+import lk.practice.candidate_recruitment_tracker.usecase.records.CreateNewCandidateCommand;
+import lk.practice.candidate_recruitment_tracker.usecase.records.CreateNewCandidateResult;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -32,11 +34,35 @@ public class CandidateUseCaseImpl implements CandidateUseCase{
 
     //save candidate
     @Override
-    public void saveCandidate(Candidate candidate){
-        //set status applied for fresh candidate
-        candidate.setStatus(CandidateStatus.APPLIED);
+    public CreateNewCandidateResult saveCandidate(CreateNewCandidateCommand createNewCandidateCommand) {
 
-        candidateRepository.saveCandidate(candidate);
+        if(candidateRepository.getCandidateByEmail(createNewCandidateCommand.email()).isPresent()){
+            throw new IllegalStateException("User already exists, cannot proceed the request!!");
+        }
+        //create new candidate through domain
+        Candidate newCandidate = Candidate.createCandidate(
+                createNewCandidateCommand.fullName(),
+                createNewCandidateCommand.email(),
+                createNewCandidateCommand.experience(),
+                createNewCandidateCommand.appliedRole(),
+                createNewCandidateCommand.expectedSalary(),
+                CandidateStatus.APPLIED,
+                0.0
+        );
+        //calculate recruitment score
+        newCandidate.recruitmentScoreCalculate();
+
+        Candidate savedCandidates = candidateRepository.saveCandidate(newCandidate);
+
+        return new CreateNewCandidateResult(
+                savedCandidates.getId().toString(),
+                savedCandidates.getFullName(),
+                savedCandidates.getEmail(),
+                savedCandidates.getExperience(),
+                savedCandidates.getAppliedRole(),
+                savedCandidates.getExpectedSalary(),
+                savedCandidates.getStatus().toString()
+        );
     }
 
     //update candidate
