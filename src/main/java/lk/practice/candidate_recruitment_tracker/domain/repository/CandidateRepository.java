@@ -3,8 +3,11 @@ package lk.practice.candidate_recruitment_tracker.domain.repository;
 import lk.practice.candidate_recruitment_tracker.domain.model.Candidate;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CandidateRepository {
+
+    Optional<Candidate> getCandidateByEmail(String email);
 
     //initiate get all candidates
     List<Candidate> getAllCandidates(int page, int size);
